@@ -4,6 +4,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import Display from "./pages/Display";
 import ControlPlane from "./pages/ControlPlane";
+import { GameDataProvider } from "./state/GameDataContext";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <GameDataProvider>
+      <RouterProvider router={router} />
+    </GameDataProvider>
   </StrictMode>
 );

@@ -8,8 +8,6 @@ const ControlPlane = () => {
 
   return (
     <div>
-      <h1>Control Plane</h1>
-      
       <ModeSelector 
         currentMode={currentMode} 
         onModeChange={setCurrentMode} 
