@@ -1,4 +1,4 @@
-import { useGameData } from '../state/GameDataContext';
+import { useGameData } from "../state/GameDataContext";
 
 const PlayersSetup = () => {
   const { data, addPlayer, updatePlayer, removePlayer } = useGameData();
@@ -9,7 +9,7 @@ const PlayersSetup = () => {
         <h3 className="text-lg font-semibold text-gray-900">Players</h3>
         <button
           onClick={addPlayer}
-          className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-indigo-600 text-white hover:bg-indigo-700"
+          className="cursor-pointer inline-flex items-center gap-2 px-3 py-2 rounded-md bg-indigo-600 text-white hover:bg-indigo-700"
         >
           <span className="text-lg leading-none">＋</span>
           Add Player
@@ -17,7 +17,9 @@ const PlayersSetup = () => {
       </div>
 
       {data.players.length === 0 ? (
-        <p className="text-gray-600">No players yet. Click "Add Player" to create one.</p>
+        <p className="text-gray-600">
+          No players yet. Click "Add Player" to create one.
+        </p>
       ) : (
         <ul className="space-y-3">
           {data.players.map((p) => (
@@ -37,7 +39,7 @@ const PlayersSetup = () => {
               />
               <button
                 onClick={() => removePlayer(p.id)}
-                className="px-3 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-50"
+                className="cursor-pointer px-3 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-50"
                 title="Remove player"
               >
                 Remove

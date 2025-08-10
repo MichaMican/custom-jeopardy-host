@@ -42,13 +42,37 @@ const createDefaultGameData = (): GameData => ({
   players: [],
 });
 
-function genId() {
-  return `player-${Math.random().toString(36).slice(2)}-${Date.now().toString(36)}`;
+function normalizeQuestion(q: any): Question {
+  return {
+    prompt: typeof q?.prompt === 'string' ? q.prompt : '',
+    notes: typeof q?.notes === 'string' ? q.notes : '',
+  };
 }
 
-function randomColor() {
-  const colors = ['#ef4444', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899', '#22c55e', '#eab308'];
-  return colors[Math.floor(Math.random() * colors.length)];
+function normalizeCategory(c: any, index: number): Category {
+  const name = typeof c?.name === 'string' ? c.name : `Category ${index + 1}`;
+  const questions = { ...createEmptyCategory().questions } as Category['questions'];
+  (POINT_VALUES as PointValue[]).forEach((pv) => {
+    questions[pv] = normalizeQuestion(c?.questions?.[pv]);
+  });
+  return { name, questions };
+}
+
+function normalizePlayer(p: any, idx: number): Player {
+  const id = typeof p?.id === 'string' ? p.id : `player-${idx}`;
+  const name = typeof p?.name === 'string' ? p.name : `Player ${idx + 1}`;
+  const color = typeof p?.color === 'string' ? p.color : '#3b82f6';
+  return { id, name, color };
+}
+
+export function normalizeGameData(gd: any): GameData {
+  const categories: Category[] = [];
+  for (let i = 0; i < 6; i++) {
+    categories.push(normalizeCategory(gd?.categories?.[i], i));
+  }
+  const rawPlayers: any[] = Array.isArray(gd?.players) ? gd.players : [];
+  const players = rawPlayers.map((p, i) => normalizePlayer(p, i));
+  return { categories, players };
 }
 
 export type GameDataContextType = {
@@ -59,6 +83,7 @@ export type GameDataContextType = {
   addPlayer: () => void;
   updatePlayer: (id: string, update: Partial<Player>) => void;
   removePlayer: (id: string) => void;
+  replaceAll: (next: GameData | unknown) => void;
 };
 
 const GameDataContext = createContext<GameDataContextType | undefined>(undefined);
@@ -89,7 +114,7 @@ export function GameDataProvider({ children }: { children: ReactNode }) {
     addPlayer: () => {
       setData(prev => {
         const nextIndex = prev.players.length + 1;
-        const player: Player = { id: genId(), name: `Player ${nextIndex}`, color: randomColor() };
+        const player: Player = { id: `player-${crypto.randomUUID?.() ?? Math.random().toString(36).slice(2)}`, name: `Player ${nextIndex}`, color: '#3b82f6' };
         return { ...prev, players: [...prev.players, player] };
       });
     },
@@ -102,6 +127,7 @@ export function GameDataProvider({ children }: { children: ReactNode }) {
     removePlayer: (id) => {
       setData(prev => ({ ...prev, players: prev.players.filter(p => p.id !== id) }));
     },
+    replaceAll: (next) => setData(normalizeGameData(next)),
   }), [data]);
 
   return (
