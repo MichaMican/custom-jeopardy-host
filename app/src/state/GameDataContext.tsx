@@ -84,9 +84,14 @@ export type GameDataContextType = {
   updatePlayer: (id: string, update: Partial<Player>) => void;
   removePlayer: (id: string) => void;
   replaceAll: (next: GameData | unknown) => void;
+  // New helpers for persistence
+  saveToLocalStorage: () => void;
+  loadFromLocalStorage: () => void;
 };
 
 const GameDataContext = createContext<GameDataContextType | undefined>(undefined);
+
+const STORAGE_KEY = 'jeopardy-game-data';
 
 export function GameDataProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<GameData>(() => createDefaultGameData());
@@ -128,6 +133,29 @@ export function GameDataProvider({ children }: { children: ReactNode }) {
       setData(prev => ({ ...prev, players: prev.players.filter(p => p.id !== id) }));
     },
     replaceAll: (next) => setData(normalizeGameData(next)),
+    // Persistence helpers
+    saveToLocalStorage: () => {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      } catch (e) {
+        console.error('Failed to save data', e);
+        alert('Failed to save to localStorage.');
+      }
+    },
+    loadFromLocalStorage: () => {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          alert('No saved data found.');
+          return;
+        }
+        const parsed = JSON.parse(raw);
+        setData(normalizeGameData(parsed));
+      } catch (e) {
+        console.error('Failed to load data', e);
+        alert('Failed to load from localStorage.');
+      }
+    },
   }), [data]);
 
   return (
