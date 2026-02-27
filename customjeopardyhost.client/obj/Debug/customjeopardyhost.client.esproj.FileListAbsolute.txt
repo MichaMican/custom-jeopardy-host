@@ -1,0 +1,1 @@
+E:\git\custom-jeopardy-host\customjeopardyhost.client\obj\Debug\customjeopardyhost.client.esproj.CoreCompileInputs.cache
