@@ -1,54 +1,63 @@
 .remote-container {
   max-width: 480px;
   margin: 0 auto;
-  padding: 8px;
-  font-family: "Arial", sans-serif;
+  padding: 12px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 .remote-status {
   text-align: center;
   padding: 40px;
   font-size: 1.2rem;
+  color: #94a3b8;
 }
 
 .remote-tabs {
   display: flex;
-  gap: 4px;
-  margin-bottom: 12px;
+  gap: 6px;
+  margin-bottom: 14px;
 }
 
 .tab-btn {
   flex: 1;
   padding: 12px;
   font-size: 1rem;
-  font-weight: bold;
-  border: 2px solid #444;
-  border-radius: 8px;
-  background: #1a1a1a;
-  color: #fff;
+  font-weight: 600;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 10px;
+  background: rgba(30, 41, 59, 0.5);
+  color: #94a3b8;
   cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.03em;
 }
 
 .tab-btn.active {
-  background: #060ce9;
-  border-color: #060ce9;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.2));
+  border-color: rgba(99, 102, 241, 0.4);
+  color: #e2e8f0;
 }
 
 .remote-panel {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .remote-section {
-  border: 1px solid #333;
-  border-radius: 8px;
-  padding: 12px;
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  border-radius: 12px;
+  padding: 14px;
+  background: rgba(30, 41, 59, 0.3);
 }
 
 .remote-section h2 {
-  font-size: 1.1rem;
-  margin: 0 0 8px 0;
+  font-size: 1rem;
+  margin: 0 0 10px 0;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
 }
 
 .input-row {
@@ -61,12 +70,12 @@
 .input-column input,
 .input-column select {
   flex: 1;
-  padding: 10px;
+  padding: 10px 12px;
   font-size: 1rem;
-  border-radius: 6px;
-  border: 1px solid #555;
-  background: #2a2a2a;
-  color: #fff;
+  border-radius: 8px;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  background: rgba(15, 23, 42, 0.6);
+  color: #e2e8f0;
 }
 
 .input-row button,
@@ -93,9 +102,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 4px;
-  border-bottom: 1px solid #333;
+  padding: 10px 6px;
+  border-bottom: 1px solid rgba(99, 102, 241, 0.1);
   font-size: 0.95rem;
+  color: #c7d2fe;
 }
 
 .item-list li:last-child {
@@ -103,13 +113,18 @@
 }
 
 .btn-remove {
-  background: #c0392b;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
+  background: rgba(220, 38, 38, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  border-radius: 6px;
   padding: 4px 10px;
   cursor: pointer;
   font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.btn-remove:hover {
+  background: rgba(220, 38, 38, 0.3);
 }
 
 .btn-import {
@@ -117,11 +132,16 @@
   font-size: 1rem;
   cursor: pointer;
   border-radius: 8px;
-  border: 1px solid transparent;
-  background: #1a1a1a;
-  color: #fff;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  background: rgba(30, 41, 59, 0.5);
+  color: #c7d2fe;
   font-weight: 500;
   text-align: center;
+  transition: all 0.2s ease;
+}
+
+.btn-import:hover {
+  border-color: rgba(99, 102, 241, 0.4);
 }
 
 .scoreboard-list {
@@ -134,20 +154,22 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px;
-  background: #1a1a1a;
-  border-radius: 6px;
+  padding: 10px 12px;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(99, 102, 241, 0.1);
+  border-radius: 10px;
 }
 
 .score-name {
   flex: 1;
-  font-weight: bold;
+  font-weight: 600;
+  color: #e2e8f0;
 }
 
 .score-value {
   font-size: 1.2rem;
-  font-weight: bold;
-  color: #d4a017;
+  font-weight: 800;
+  color: #fbbf24;
   min-width: 60px;
   text-align: right;
 }
@@ -158,23 +180,23 @@
 }
 
 .btn-award {
-  background: #27ae60;
+  background: linear-gradient(135deg, #16a34a, #15803d);
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   padding: 6px 10px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .btn-deduct {
-  background: #c0392b;
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   padding: 6px 10px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .buzzer-controls {
@@ -186,14 +208,18 @@
 .btn-buzzer {
   padding: 14px;
   font-size: 1.1rem;
-  font-weight: bold;
-  border-radius: 8px;
+  font-weight: 700;
+  border-radius: 10px;
   cursor: pointer;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  background: rgba(30, 41, 59, 0.5);
+  color: #94a3b8;
+  transition: all 0.2s ease;
 }
 
 .btn-buzzer.active {
-  background: #27ae60;
-  border-color: #27ae60;
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  border-color: transparent;
   color: #fff;
 }
 
@@ -204,16 +230,19 @@
 }
 
 .buzz-entry {
-  padding: 6px 10px;
-  background: #2a2a2a;
-  border-radius: 4px;
+  padding: 8px 12px;
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(99, 102, 241, 0.1);
+  border-radius: 8px;
   font-size: 0.95rem;
+  color: #c7d2fe;
 }
 
 .buzz-entry.first {
-  background: #d4a017;
-  color: #000;
-  font-weight: bold;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border-color: transparent;
+  color: #1e1b4b;
+  font-weight: 700;
 }
 
 .current-question-info {
@@ -222,10 +251,11 @@
 
 .current-question-info p {
   margin: 4px 0;
+  color: #c7d2fe;
 }
 
 .answer-text {
-  color: #27ae60;
+  color: #4ade80 !important;
   font-style: italic;
 }
 
@@ -233,18 +263,23 @@
   width: 100%;
   padding: 14px;
   font-size: 1.1rem;
-  font-weight: bold;
-  background: #c0392b;
+  font-weight: 700;
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-return:hover {
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.3);
 }
 
 .remote-board {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  gap: 4px;
+  gap: 6px;
 }
 
 .remote-board-category {
@@ -255,31 +290,40 @@
 
 .remote-board-header {
   text-align: center;
-  font-size: 0.75rem;
-  font-weight: bold;
-  padding: 4px;
-  background: #060ce9;
-  color: #fff;
-  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 6px 4px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.15));
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  color: #c7d2fe;
+  border-radius: 6px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .remote-board-cell {
   text-align: center;
   padding: 8px 4px;
   font-size: 0.85rem;
-  font-weight: bold;
-  background: #060ce9;
-  color: #d4a017;
-  border: 1px solid #333;
-  border-radius: 4px;
+  font-weight: 700;
+  background: linear-gradient(135deg, rgba(30, 58, 138, 0.5), rgba(67, 56, 202, 0.3));
+  color: #fbbf24;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 6px;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.remote-board-cell:hover {
+  border-color: rgba(129, 140, 248, 0.5);
 }
 
 .remote-board-cell.empty {
-  background: #1a1a1a;
-  color: #555;
+  background: rgba(15, 23, 42, 0.4);
+  border-color: rgba(51, 65, 85, 0.3);
+  color: #475569;
   cursor: default;
 }
