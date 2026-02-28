@@ -276,6 +276,24 @@
   box-shadow: 0 4px 16px rgba(220, 38, 38, 0.3);
 }
 
+.btn-reveal {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 8px;
+}
+
+.btn-reveal:hover {
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
+}
+
 .remote-board {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));

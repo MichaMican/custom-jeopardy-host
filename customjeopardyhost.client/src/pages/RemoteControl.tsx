@@ -324,6 +324,14 @@ function RemoteControl() {
                   Answer: {gameState.currentQuestion.answer}
                 </p>
               </div>
+              {!gameState.questionRevealed && (
+                <button
+                  className="btn-reveal"
+                  onClick={() => invoke("RevealQuestion")}
+                >
+                  Show Question
+                </button>
+              )}
               <button
                 className="btn-return"
                 onClick={() => invoke("ReturnToBoard")}
