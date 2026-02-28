@@ -9,3 +9,5 @@ Desktop.ini
 
 ## Build artifacts
 CustomJeopardyHost.Server/wwwroot/
+**/obj/
+**/bin/
