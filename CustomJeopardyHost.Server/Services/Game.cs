@@ -163,6 +163,9 @@ public class GameService
 
     public async Task ImportGameSettings(GameState state)
     {
+        state.Players ??= new();
+        state.Categories ??= new();
+        state.BuzzOrder ??= new();
         _gameState = state;
         await BroadcastGameState();
     }

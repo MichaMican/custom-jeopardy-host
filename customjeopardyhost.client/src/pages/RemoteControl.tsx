@@ -50,7 +50,7 @@ function RemoteControl() {
     a.href = url;
     a.download = "jeopardy-game.json";
     a.click();
-    URL.revokeObjectURL(url);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
   const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +62,7 @@ function RemoteControl() {
         const state = JSON.parse(event.target?.result as string) as GameState;
         await invoke("ImportGameSettings", state);
       } catch {
-        alert("Invalid JSON file");
+        alert("The selected file does not contain valid game settings");
       }
     };
     reader.readAsText(file);

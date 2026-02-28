@@ -5,12 +5,10 @@ import "./Buzzer.css";
 function Buzzer() {
   const { gameState, connectionStatus, invoke } = useSignalR();
   const [selectedPlayerId, setSelectedPlayerId] = useState("");
-  const [hasBuzzed, setHasBuzzed] = useState(false);
 
   const handleBuzzIn = async () => {
     if (!selectedPlayerId || !gameState?.buzzerActive) return;
     await invoke("BuzzIn", selectedPlayerId);
-    setHasBuzzed(true);
   };
 
   if (connectionStatus !== "Connected") {
@@ -33,12 +31,6 @@ function Buzzer() {
     selectedPlayerId &&
     gameState.buzzOrder.some((b) => b.playerId === selectedPlayerId);
 
-  const buzzerResetDetected =
-    hasBuzzed && !gameState.buzzOrder.some((b) => b.playerId === selectedPlayerId);
-  if (buzzerResetDetected && hasBuzzed) {
-    setTimeout(() => setHasBuzzed(false), 0);
-  }
-
   return (
     <div className="buzzer-container">
       <h1 className="buzzer-title">Buzzer</h1>
@@ -50,7 +42,6 @@ function Buzzer() {
           value={selectedPlayerId}
           onChange={(e) => {
             setSelectedPlayerId(e.target.value);
-            setHasBuzzed(false);
           }}
         >
           <option value="">-- Select Player --</option>
