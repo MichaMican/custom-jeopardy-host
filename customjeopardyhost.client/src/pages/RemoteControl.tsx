@@ -1,6 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSignalR } from "../hooks/useSignalR";
 import type { GameState } from "../types/GameState";
+import {
+  saveGameState,
+  loadGameState,
+  clearGameState,
+} from "../utils/localStorage";
 import "./RemoteControl.css";
 
 const POINT_LEVELS = [200, 400, 600, 800, 1000];
@@ -14,6 +19,52 @@ function RemoteControl() {
   const [questionAnswer, setQuestionAnswer] = useState("");
   const [questionPoints, setQuestionPoints] = useState(200);
   const [tab, setTab] = useState<"setup" | "host">("setup");
+  const [showResetModal, setShowResetModal] = useState(false);
+  const hasRestoredRef = useRef(false);
+
+  // Auto-save game state to localStorage whenever it changes
+  useEffect(() => {
+    if (gameState) {
+      saveGameState(gameState);
+    }
+  }, [gameState]);
+
+  // Auto-restore from localStorage when server state is empty
+  useEffect(() => {
+    if (
+      hasRestoredRef.current ||
+      connectionStatus !== "Connected" ||
+      !gameState
+    )
+      return;
+    hasRestoredRef.current = true;
+
+    const isEmpty =
+      gameState.players.length === 0 && gameState.categories.length === 0;
+    if (!isEmpty) return;
+
+    const saved = loadGameState();
+    if (
+      saved &&
+      (saved.players.length > 0 || saved.categories.length > 0)
+    ) {
+      invoke("ImportGameSettings", saved);
+    }
+  }, [connectionStatus, gameState, invoke]);
+
+  const handleReset = async () => {
+    clearGameState();
+    const emptyState: GameState = {
+      players: [],
+      categories: [],
+      currentQuestion: null,
+      questionRevealed: false,
+      buzzerActive: false,
+      buzzOrder: [],
+    };
+    await invoke("ImportGameSettings", emptyState);
+    setShowResetModal(false);
+  };
 
   const handleAddPlayer = async () => {
     if (!playerName.trim()) return;
@@ -228,6 +279,16 @@ function RemoteControl() {
               </label>
             </div>
           </section>
+
+          <section className="remote-section">
+            <h2>Reset</h2>
+            <button
+              className="btn-reset"
+              onClick={() => setShowResetModal(true)}
+            >
+              Reset Game
+            </button>
+          </section>
         </div>
       )}
 
@@ -379,6 +440,26 @@ function RemoteControl() {
               </div>
             </section>
           )}
+        </div>
+      )}
+
+      {showResetModal && (
+        <div className="modal-overlay" onClick={() => setShowResetModal(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <h2>Reset Game</h2>
+            <p>
+              Are you sure you want to reset the game? This will delete all
+              players, categories, questions, and scores.
+            </p>
+            <div className="modal-actions">
+              <button className="btn-cancel" onClick={() => setShowResetModal(false)}>
+                Cancel
+              </button>
+              <button className="btn-confirm-reset" onClick={handleReset}>
+                Reset
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
