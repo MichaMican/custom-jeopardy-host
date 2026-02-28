@@ -29,12 +29,20 @@ function Display() {
     return (
       <div className="display-container">
         <div className="display-question">
-          <div className="display-question-points">
-            {gameState.currentQuestion.points}
-          </div>
-          <div className="display-question-text">
-            {gameState.currentQuestion.text}
-          </div>
+          {gameState.questionRevealed ? (
+            <>
+              <div className="display-question-points">
+                {gameState.currentQuestion.points}
+              </div>
+              <div className="display-question-text">
+                {gameState.currentQuestion.text}
+              </div>
+            </>
+          ) : (
+            <div className="display-question-points">
+              {gameState.currentQuestion.points}
+            </div>
+          )}
         </div>
         {gameState.buzzerActive && gameState.buzzOrder.length > 0 && (
           <div className="display-buzz-order">

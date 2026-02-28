@@ -5,6 +5,7 @@ public class GameState
     public List<Player> Players { get; set; } = new();
     public List<Category> Categories { get; set; } = new();
     public Question? CurrentQuestion { get; set; }
+    public bool QuestionRevealed { get; set; }
     public bool BuzzerActive { get; set; }
     public List<BuzzIn> BuzzOrder { get; set; } = new();
 }

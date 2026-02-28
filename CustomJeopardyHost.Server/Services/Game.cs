@@ -88,6 +88,16 @@ public class GameService
         if (question != null)
         {
             _gameState.CurrentQuestion = question;
+            _gameState.QuestionRevealed = false;
+            await BroadcastGameState();
+        }
+    }
+
+    public async Task RevealQuestion()
+    {
+        if (_gameState.CurrentQuestion != null)
+        {
+            _gameState.QuestionRevealed = true;
             await BroadcastGameState();
         }
     }
@@ -95,6 +105,7 @@ public class GameService
     public async Task ReturnToBoard()
     {
         _gameState.CurrentQuestion = null;
+        _gameState.QuestionRevealed = false;
         _gameState.BuzzerActive = false;
         _gameState.BuzzOrder.Clear();
         await BroadcastGameState();
