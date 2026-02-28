@@ -1,3 +1,9 @@
+.remote-page {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%);
+}
+
 .remote-container {
   width: 100%;
   max-width: 480px;
@@ -5,13 +11,14 @@
   padding: 12px;
   box-sizing: border-box;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: #e2e8f0;
 }
 
 .remote-status {
   text-align: center;
   padding: 40px;
   font-size: 1.2rem;
-  color: #94a3b8;
+  color: #cbd5e1;
 }
 
 .remote-tabs {
@@ -28,7 +35,7 @@
   border: 1px solid rgba(99, 102, 241, 0.2);
   border-radius: 10px;
   background: rgba(30, 41, 59, 0.5);
-  color: #94a3b8;
+  color: #cbd5e1;
   cursor: pointer;
   transition: all 0.2s ease;
   letter-spacing: 0.03em;
@@ -56,7 +63,7 @@
 .remote-section h2 {
   font-size: 1rem;
   margin: 0 0 10px 0;
-  color: #94a3b8;
+  color: #e2e8f0;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-weight: 600;
@@ -78,6 +85,12 @@
   border: 1px solid rgba(99, 102, 241, 0.2);
   background: rgba(15, 23, 42, 0.6);
   color: #e2e8f0;
+}
+
+.input-row input::placeholder,
+.input-column input::placeholder {
+  color: #94a3b8;
+  opacity: 1;
 }
 
 .input-row button,
@@ -107,7 +120,7 @@
   padding: 10px 6px;
   border-bottom: 1px solid rgba(99, 102, 241, 0.1);
   font-size: 0.95rem;
-  color: #c7d2fe;
+  color: #e0e7ff;
 }
 
 .item-list li:last-child {
@@ -136,7 +149,7 @@
   border-radius: 8px;
   border: 1px solid rgba(99, 102, 241, 0.2);
   background: rgba(30, 41, 59, 0.5);
-  color: #c7d2fe;
+  color: #e0e7ff;
   font-weight: 500;
   text-align: center;
   transition: all 0.2s ease;
@@ -215,7 +228,7 @@
   cursor: pointer;
   border: 1px solid rgba(99, 102, 241, 0.2);
   background: rgba(30, 41, 59, 0.5);
-  color: #94a3b8;
+  color: #cbd5e1;
   transition: all 0.2s ease;
 }
 
@@ -237,7 +250,7 @@
   border: 1px solid rgba(99, 102, 241, 0.1);
   border-radius: 8px;
   font-size: 0.95rem;
-  color: #c7d2fe;
+  color: #e0e7ff;
 }
 
 .buzz-entry.first {
@@ -253,7 +266,7 @@
 
 .current-question-info p {
   margin: 4px 0;
-  color: #c7d2fe;
+  color: #e0e7ff;
 }
 
 .answer-text {
