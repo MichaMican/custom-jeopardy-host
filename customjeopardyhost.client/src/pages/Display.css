@@ -1,0 +1,149 @@
+.display-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #060ce9;
+  color: #fff;
+  font-family: "Arial", sans-serif;
+  overflow: hidden;
+}
+
+.display-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 2rem;
+}
+
+.display-board {
+  display: flex;
+  flex: 1;
+  gap: 4px;
+  padding: 8px;
+}
+
+.display-category {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.display-category-header {
+  background-color: #060ce9;
+  text-align: center;
+  font-size: 1.4vw;
+  font-weight: bold;
+  padding: 12px 4px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.display-cell {
+  flex: 1;
+  background-color: #060ce9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5vw;
+  font-weight: bold;
+  color: #d4a017;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  border: 2px solid #000;
+  border-radius: 4px;
+  cursor: default;
+}
+
+.display-cell.answered {
+  background-color: #03065e;
+  color: transparent;
+}
+
+.display-question {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+}
+
+.display-question-points {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #d4a017;
+  margin-bottom: 24px;
+}
+
+.display-question-text {
+  font-size: 2.5rem;
+  line-height: 1.4;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.display-buzz-order {
+  padding: 0 40px 20px;
+  text-align: center;
+}
+
+.display-buzz-order h3 {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.display-buzz-order ol {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.display-buzz-order li {
+  font-size: 1.3rem;
+  padding: 8px 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.display-buzz-order li.first-buzz {
+  background-color: #d4a017;
+  color: #000;
+  font-weight: bold;
+}
+
+.display-scoreboard {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding: 12px 16px;
+  background-color: #000;
+  flex-wrap: wrap;
+}
+
+.display-player-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 100px;
+  padding: 8px 16px;
+}
+
+.display-player-score .player-name {
+  font-size: 1rem;
+  color: #fff;
+}
+
+.display-player-score .player-score {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #d4a017;
+}

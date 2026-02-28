@@ -1,0 +1,285 @@
+.remote-container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 8px;
+  font-family: "Arial", sans-serif;
+}
+
+.remote-status {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.2rem;
+}
+
+.remote-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 2px solid #444;
+  border-radius: 8px;
+  background: #1a1a1a;
+  color: #fff;
+  cursor: pointer;
+}
+
+.tab-btn.active {
+  background: #060ce9;
+  border-color: #060ce9;
+}
+
+.remote-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.remote-section {
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.remote-section h2 {
+  font-size: 1.1rem;
+  margin: 0 0 8px 0;
+}
+
+.input-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.input-row input,
+.input-column input,
+.input-column select {
+  flex: 1;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #555;
+  background: #2a2a2a;
+  color: #fff;
+}
+
+.input-row button,
+.input-column button {
+  padding: 10px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.input-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.item-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 4px;
+  border-bottom: 1px solid #333;
+  font-size: 0.95rem;
+}
+
+.item-list li:last-child {
+  border-bottom: none;
+}
+
+.btn-remove {
+  background: #c0392b;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-import {
+  padding: 10px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: #1a1a1a;
+  color: #fff;
+  font-weight: 500;
+  text-align: center;
+}
+
+.scoreboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.score-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: #1a1a1a;
+  border-radius: 6px;
+}
+
+.score-name {
+  flex: 1;
+  font-weight: bold;
+}
+
+.score-value {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #d4a017;
+  min-width: 60px;
+  text-align: right;
+}
+
+.score-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.btn-award {
+  background: #27ae60;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-deduct {
+  background: #c0392b;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.buzzer-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-buzzer {
+  padding: 14px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-buzzer.active {
+  background: #27ae60;
+  border-color: #27ae60;
+  color: #fff;
+}
+
+.buzz-order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.buzz-entry {
+  padding: 6px 10px;
+  background: #2a2a2a;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.buzz-entry.first {
+  background: #d4a017;
+  color: #000;
+  font-weight: bold;
+}
+
+.current-question-info {
+  margin-bottom: 12px;
+}
+
+.current-question-info p {
+  margin: 4px 0;
+}
+
+.answer-text {
+  color: #27ae60;
+  font-style: italic;
+}
+
+.btn-return {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  background: #c0392b;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.remote-board {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 4px;
+}
+
+.remote-board-category {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.remote-board-header {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 4px;
+  background: #060ce9;
+  color: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.remote-board-cell {
+  text-align: center;
+  padding: 8px 4px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  background: #060ce9;
+  color: #d4a017;
+  border: 1px solid #333;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.remote-board-cell.empty {
+  background: #1a1a1a;
+  color: #555;
+  cursor: default;
+}

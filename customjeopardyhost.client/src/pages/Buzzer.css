@@ -1,0 +1,124 @@
+.buzzer-container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 16px;
+  font-family: "Arial", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.buzzer-status {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.2rem;
+}
+
+.buzzer-title {
+  font-size: 1.8rem;
+  margin-bottom: 24px;
+}
+
+.buzzer-player-select {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.buzzer-player-select label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.buzzer-player-select select {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  border: 1px solid #555;
+  background: #2a2a2a;
+  color: #fff;
+}
+
+.buzz-button {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border: 4px solid;
+  cursor: pointer;
+  transition: transform 0.1s, background-color 0.2s;
+  margin: 16px 0;
+}
+
+.buzz-button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.buzz-button.ready {
+  background: #c0392b;
+  border-color: #922b21;
+  color: #fff;
+  animation: pulse 1.5s infinite;
+}
+
+.buzz-button.buzzed {
+  background: #27ae60;
+  border-color: #1e8449;
+  color: #fff;
+  cursor: default;
+}
+
+.buzz-button.disabled {
+  background: #555;
+  border-color: #444;
+  color: #999;
+  cursor: not-allowed;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(192, 57, 43, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 0 20px rgba(192, 57, 43, 0);
+  }
+}
+
+.buzz-order-display {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.buzz-order-display h2 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.buzz-order-display ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.buzz-order-display li {
+  padding: 10px 16px;
+  margin-bottom: 4px;
+  background: #2a2a2a;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.buzz-order-display li.first {
+  background: #d4a017;
+  color: #000;
+  font-weight: bold;
+}
+
+.buzz-order-display li.me {
+  border: 2px solid #3498db;
+}
