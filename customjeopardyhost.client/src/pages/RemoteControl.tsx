@@ -16,6 +16,14 @@ function RemoteControl() {
   const [tab, setTab] = useState<"setup" | "host">("setup");
   const [editingScorePlayerId, setEditingScorePlayerId] = useState<string | null>(null);
   const [editScoreValue, setEditScoreValue] = useState("");
+  const [editScoreCancelled, setEditScoreCancelled] = useState(false);
+
+  const saveScore = async (playerId: string, value: string) => {
+    const score = Number(value);
+    if (!isNaN(score)) {
+      await invoke("SetPlayerScore", playerId, score);
+    }
+  };
 
   const handleAddPlayer = async () => {
     if (!playerName.trim()) return;
@@ -249,14 +257,18 @@ function RemoteControl() {
                       onChange={(e) => setEditScoreValue(e.target.value)}
                       onKeyDown={async (e) => {
                         if (e.key === "Enter") {
-                          await invoke("SetPlayerScore", p.id, Number(editScoreValue));
+                          await saveScore(p.id, editScoreValue);
                           setEditingScorePlayerId(null);
                         } else if (e.key === "Escape") {
+                          setEditScoreCancelled(true);
                           setEditingScorePlayerId(null);
                         }
                       }}
                       onBlur={async () => {
-                        await invoke("SetPlayerScore", p.id, Number(editScoreValue));
+                        if (!editScoreCancelled) {
+                          await saveScore(p.id, editScoreValue);
+                        }
+                        setEditScoreCancelled(false);
                         setEditingScorePlayerId(null);
                       }}
                       autoFocus
