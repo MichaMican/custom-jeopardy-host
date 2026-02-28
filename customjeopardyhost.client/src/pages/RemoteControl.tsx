@@ -84,6 +84,7 @@ function RemoteControl() {
         buzzOrder: [],
         mediaPlaying: false,
         mozaikRevealing: false,
+        questionTextRevealed: false,
       };
       await invoke("ImportGameSettings", emptyState);
       setShowResetModal(false);
@@ -311,6 +312,14 @@ function RemoteControl() {
                   )}
                 </div>
               )}
+              {(questionType === "Image" || questionType === "Audio") && (
+                <input
+                  type="text"
+                  placeholder="Question text (optional)"
+                  value={questionText}
+                  onChange={(e) => setQuestionText(e.target.value)}
+                />
+              )}
               <input
                 type="text"
                 placeholder="Answer"
@@ -516,6 +525,9 @@ function RemoteControl() {
                 {gameState.currentQuestion.questionType === "Standard" && (
                   <p>{gameState.currentQuestion.text}</p>
                 )}
+                {(gameState.currentQuestion.questionType === "Image" || gameState.currentQuestion.questionType === "Audio") && gameState.currentQuestion.text && (
+                  <p>{gameState.currentQuestion.text}</p>
+                )}
                 {gameState.currentQuestion.mediaFileName && (
                   <p className="media-info">
                     Media: {gameState.currentQuestion.mediaFileName}
@@ -552,6 +564,14 @@ function RemoteControl() {
                     </button>
                   )}
                 </div>
+              )}
+              {(gameState.currentQuestion.questionType === "Image" || gameState.currentQuestion.questionType === "Audio") && gameState.currentQuestion.text && (
+                <button
+                  className={`btn-media ${gameState.questionTextRevealed ? "active" : ""}`}
+                  onClick={() => invoke(gameState.questionTextRevealed ? "HideQuestionText" : "RevealQuestionText")}
+                >
+                  {gameState.questionTextRevealed ? "Hide Question Text" : "Show Question Text"}
+                </button>
               )}
               <button
                 className="btn-dismiss"

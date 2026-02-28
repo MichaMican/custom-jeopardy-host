@@ -5,11 +5,12 @@ import "./Display.css";
 
 const POINT_LEVELS = [200, 400, 600, 800, 1000];
 
-function QuestionDisplay({ question, revealed, mediaPlaying, mozaikRevealing }: {
+function QuestionDisplay({ question, revealed, mediaPlaying, mozaikRevealing, questionTextRevealed }: {
   question: Question;
   revealed: boolean;
   mediaPlaying: boolean;
   mozaikRevealing: boolean;
+  questionTextRevealed: boolean;
 }) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [mozaikBlur, setMozaikBlur] = useState(40);
@@ -46,9 +47,14 @@ function QuestionDisplay({ question, revealed, mediaPlaying, mozaikRevealing }: 
 
   if (!revealed) {
     return (
-      <div className="display-question-points">
-        {question.points}
-      </div>
+      <>
+        <div className="display-question-points">
+          {question.points}
+        </div>
+        {questionTextRevealed && question.text && (
+          <div className="display-question-text">{question.text}</div>
+        )}
+      </>
     );
   }
 
@@ -65,6 +71,9 @@ function QuestionDisplay({ question, revealed, mediaPlaying, mozaikRevealing }: 
               alt="Question"
               className="display-question-image"
             />
+          )}
+          {questionTextRevealed && question.text && (
+            <div className="display-question-text">{question.text}</div>
           )}
         </>
       );
@@ -93,6 +102,9 @@ function QuestionDisplay({ question, revealed, mediaPlaying, mozaikRevealing }: 
           </div>
           {mediaUrl && (
             <audio ref={audioRef} src={mediaUrl} preload="auto" />
+          )}
+          {questionTextRevealed && question.text && (
+            <div className="display-question-text">{question.text}</div>
           )}
         </>
       );
@@ -138,6 +150,7 @@ function Display() {
             revealed={gameState.questionRevealed}
             mediaPlaying={gameState.mediaPlaying}
             mozaikRevealing={gameState.mozaikRevealing}
+            questionTextRevealed={gameState.questionTextRevealed}
           />
         </div>
         {gameState.buzzerActive && gameState.buzzOrder.length > 0 && (
