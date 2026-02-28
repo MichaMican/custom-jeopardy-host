@@ -129,15 +129,18 @@ function RemoteControl() {
 
   if (connectionStatus !== "Connected") {
     return (
-      <div className="remote-container">
-        <div className="remote-status">Connecting... ({connectionStatus})</div>
+      <div className="remote-page">
+        <div className="remote-container">
+          <div className="remote-status">Connecting... ({connectionStatus})</div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="remote-container">
-      <div className="remote-tabs">
+    <div className="remote-page">
+      <div className="remote-container">
+        <div className="remote-tabs">
         <button
           className={`tab-btn ${tab === "setup" ? "active" : ""}`}
           onClick={() => setTab("setup")}
