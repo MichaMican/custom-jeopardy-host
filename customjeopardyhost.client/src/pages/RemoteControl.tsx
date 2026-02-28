@@ -22,7 +22,9 @@ function RemoteControl() {
   const [showResetModal, setShowResetModal] = useState(false);
   const [editingScorePlayerId, setEditingScorePlayerId] = useState<string | null>(null);
   const [editingScoreValue, setEditingScoreValue] = useState("");
+  const [highlightedBuzzIndex, setHighlightedBuzzIndex] = useState(0);
   const hasRestoredRef = useRef(false);
+  const prevBuzzOrderLengthRef = useRef(0);
 
   // Auto-save game state to localStorage whenever it changes
   useEffect(() => {
@@ -56,6 +58,15 @@ function RemoteControl() {
       });
     }
   }, [connectionStatus, gameState, invoke]);
+
+  // Reset highlighted buzz index when buzz order changes
+  const currentBuzzOrderLength = gameState?.buzzOrder.length ?? 0;
+  if (currentBuzzOrderLength !== prevBuzzOrderLengthRef.current) {
+    prevBuzzOrderLengthRef.current = currentBuzzOrderLength;
+    if (highlightedBuzzIndex !== 0) {
+      setHighlightedBuzzIndex(0);
+    }
+  }
 
   const handleReset = async () => {
     try {
@@ -405,7 +416,7 @@ function RemoteControl() {
                     {gameState.buzzOrder.map((b, i) => (
                       <div
                         key={b.playerId}
-                        className={`buzz-entry ${i === 0 ? "first" : ""}`}
+                        className={`buzz-entry ${i === highlightedBuzzIndex ? "highlighted" : ""}`}
                       >
                         {i + 1}. {b.playerName}
                       </div>
@@ -413,6 +424,12 @@ function RemoteControl() {
                   </div>
                   <button onClick={() => invoke("ClearBuzzOrder")}>
                     Clear Buzz Order
+                  </button>
+                  <button
+                    onClick={() => setHighlightedBuzzIndex((prev) => prev + 1)}
+                    disabled={highlightedBuzzIndex >= gameState.buzzOrder.length - 1}
+                  >
+                    Next Buzz
                   </button>
                 </>
               )}
