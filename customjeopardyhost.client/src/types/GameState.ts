@@ -29,6 +29,7 @@ export interface GameState {
   players: Player[];
   categories: Category[];
   currentQuestion: Question | null;
+  questionRevealed: boolean;
   buzzerActive: boolean;
   buzzOrder: BuzzIn[];
 }

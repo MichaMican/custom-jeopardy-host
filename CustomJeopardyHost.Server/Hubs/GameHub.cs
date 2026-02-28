@@ -36,7 +36,11 @@ public class GameHub : Hub
     public async Task ShowQuestion(string categoryId, string questionId) =>
         await _gameService.ShowQuestion(categoryId, questionId);
 
+    public async Task RevealQuestion() => await _gameService.RevealQuestion();
+
     public async Task ReturnToBoard() => await _gameService.ReturnToBoard();
+
+    public async Task DismissQuestion() => await _gameService.DismissQuestion();
 
     public async Task AwardPoints(string playerId, int points) =>
         await _gameService.AwardPoints(playerId, points);
