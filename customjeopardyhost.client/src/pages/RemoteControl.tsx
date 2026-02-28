@@ -472,6 +472,7 @@ function RemoteControl() {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 }
