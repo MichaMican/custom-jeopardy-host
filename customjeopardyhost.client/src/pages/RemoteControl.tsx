@@ -20,6 +20,8 @@ function RemoteControl() {
   const [questionPoints, setQuestionPoints] = useState(200);
   const [tab, setTab] = useState<"setup" | "host">("setup");
   const [showResetModal, setShowResetModal] = useState(false);
+  const [editingScorePlayerId, setEditingScorePlayerId] = useState<string | null>(null);
+  const [editingScoreValue, setEditingScoreValue] = useState("");
   const hasRestoredRef = useRef(false);
 
   // Auto-save game state to localStorage whenever it changes
@@ -258,7 +260,7 @@ function RemoteControl() {
                   ?.questions.map((q) => (
                     <li key={q.id}>
                       <span>
-                        ${q.points}: {q.text}
+                        {q.points}: {q.text}
                       </span>
                       <button
                         className="btn-remove"
@@ -310,7 +312,44 @@ function RemoteControl() {
               {gameState.players.map((p) => (
                 <div key={p.id} className="score-row">
                   <span className="score-name">{p.name}</span>
-                  <span className="score-value">{p.score}</span>
+                  {editingScorePlayerId === p.id ? (
+                    <input
+                      className="score-edit-input"
+                      type="number"
+                      value={editingScoreValue}
+                      onChange={(e) => setEditingScoreValue(e.target.value)}
+                      onBlur={() => {
+                        const parsed = parseInt(editingScoreValue, 10);
+                        if (!isNaN(parsed)) {
+                          invoke("SetPlayerScore", p.id, parsed);
+                        }
+                        setEditingScorePlayerId(null);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          const parsed = parseInt(editingScoreValue, 10);
+                          if (!isNaN(parsed)) {
+                            invoke("SetPlayerScore", p.id, parsed);
+                          }
+                          setEditingScorePlayerId(null);
+                        } else if (e.key === "Escape") {
+                          setEditingScorePlayerId(null);
+                        }
+                      }}
+                      autoFocus
+                    />
+                  ) : (
+                    <span
+                      className="score-value"
+                      onClick={() => {
+                        setEditingScorePlayerId(p.id);
+                        setEditingScoreValue(String(p.score));
+                      }}
+                      title="Click to edit"
+                    >
+                      {p.score}
+                    </span>
+                  )}
                   <div className="score-actions">
                     {gameState.currentQuestion && (
                       <>
@@ -388,7 +427,7 @@ function RemoteControl() {
               <h2>Current Question</h2>
               <div className="current-question-info">
                 <p>
-                  <strong>${gameState.currentQuestion.points}</strong>
+                  <strong>{gameState.currentQuestion.points}</strong>
                 </p>
                 <p>{gameState.currentQuestion.text}</p>
                 <p className="answer-text">
@@ -441,7 +480,7 @@ function RemoteControl() {
                             invoke("ShowQuestion", category.id, question.id)
                           }
                         >
-                          ${points}
+                          {points}
                         </button>
                       );
                     })}
