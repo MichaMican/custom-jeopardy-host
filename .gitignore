@@ -11,3 +11,6 @@ Desktop.ini
 CustomJeopardyHost.Server/wwwroot/
 **/obj/
 **/bin/
+
+## Uploaded media files
+CustomJeopardyHost.Server/uploads/
