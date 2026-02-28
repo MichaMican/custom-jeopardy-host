@@ -86,7 +86,7 @@ function Display() {
                   key={points}
                   className={`display-cell ${isAnswered ? "answered" : ""}`}
                 >
-                  {!isAnswered && question ? `$${points}` : ""}
+                  {!isAnswered && question ? points : ""}
                 </div>
               );
             })}
