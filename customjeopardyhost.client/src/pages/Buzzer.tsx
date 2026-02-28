@@ -13,16 +13,22 @@ function Buzzer() {
 
   if (connectionStatus !== "Connected") {
     return (
-      <div className="buzzer-container">
-        <div className="buzzer-status">Connecting... ({connectionStatus})</div>
+      <div className="buzzer-page">
+        <div className="buzzer-container">
+          <div className="buzzer-status">
+            Connecting... ({connectionStatus})
+          </div>
+        </div>
       </div>
     );
   }
 
   if (!gameState) {
     return (
-      <div className="buzzer-container">
-        <div className="buzzer-status">Waiting for game data...</div>
+      <div className="buzzer-page">
+        <div className="buzzer-container">
+          <div className="buzzer-status">Waiting for game data...</div>
+        </div>
       </div>
     );
   }
@@ -32,62 +38,64 @@ function Buzzer() {
     gameState.buzzOrder.some((b) => b.playerId === selectedPlayerId);
 
   return (
-    <div className="buzzer-container">
-      <h1 className="buzzer-title">Buzzer</h1>
+    <div className="buzzer-page">
+      <div className="buzzer-container">
+        <h1 className="buzzer-title">Buzzer</h1>
 
-      <div className="buzzer-player-select">
-        <label htmlFor="player-select">Select your player:</label>
-        <select
-          id="player-select"
-          value={selectedPlayerId}
-          onChange={(e) => {
-            setSelectedPlayerId(e.target.value);
-          }}
-        >
-          <option value="">-- Select Player --</option>
-          {gameState.players.map((p) => (
-            <option key={p.id} value={p.id}>
-              {p.name}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {selectedPlayerId && (
-        <button
-          className={`buzz-button ${
-            !gameState.buzzerActive
-              ? "disabled"
-              : playerAlreadyBuzzed
-                ? "buzzed"
-                : "ready"
-          }`}
-          onClick={handleBuzzIn}
-          disabled={!gameState.buzzerActive || !!playerAlreadyBuzzed}
-        >
-          {!gameState.buzzerActive
-            ? "Waiting for Host..."
-            : playerAlreadyBuzzed
-              ? "Buzzed!"
-              : "BUZZ IN!"}
-        </button>
-      )}
-
-      {gameState.buzzOrder.length > 0 && (
-        <div className="buzz-order-display">
-          <h2>Buzz Order</h2>
-          <ol>
-            {gameState.buzzOrder.map((buzz, index) => (
-              <li
-                key={buzz.playerId}
-                className={`${index === 0 ? "first" : ""} ${buzz.playerId === selectedPlayerId ? "me" : ""}`}
-              >
-                {buzz.playerName}
-              </li>
+        <div className="buzzer-player-select">
+          <label htmlFor="player-select">Select your player:</label>
+          <select
+            id="player-select"
+            value={selectedPlayerId}
+            onChange={(e) => {
+              setSelectedPlayerId(e.target.value);
+            }}
+          >
+            <option value="">-- Select Player --</option>
+            {gameState.players.map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.name}
+              </option>
             ))}
-          </ol>
+          </select>
         </div>
-      )}
+
+        {selectedPlayerId && (
+          <button
+            className={`buzz-button ${
+              !gameState.buzzerActive
+                ? "disabled"
+                : playerAlreadyBuzzed
+                  ? "buzzed"
+                  : "ready"
+            }`}
+            onClick={handleBuzzIn}
+            disabled={!gameState.buzzerActive || !!playerAlreadyBuzzed}
+          >
+            {!gameState.buzzerActive
+              ? "Waiting for Host..."
+              : playerAlreadyBuzzed
+                ? "Buzzed!"
+                : "BUZZ IN!"}
+          </button>
+        )}
+
+        {gameState.buzzOrder.length > 0 && (
+          <div className="buzz-order-display">
+            <h2>Buzz Order</h2>
+            <ol>
+              {gameState.buzzOrder.map((buzz, index) => (
+                <li
+                  key={buzz.playerId}
+                  className={`${index === 0 ? "first" : ""} ${buzz.playerId === selectedPlayerId ? "me" : ""}`}
+                >
+                  {buzz.playerName}
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
