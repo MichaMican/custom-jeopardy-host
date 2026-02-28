@@ -203,10 +203,14 @@ function RemoteControl() {
     reader.onload = async (event) => {
       try {
         const data = JSON.parse(event.target?.result as string);
-        const categories = data.categories ?? data.Categories ?? [];
+        const categories = data.categories ?? data.Categories;
+        if (!Array.isArray(categories) || categories.length === 0) {
+          alert("The selected file does not contain any questions");
+          return;
+        }
         await invoke("ImportQuestions", categories);
       } catch {
-        alert("The selected file does not contain valid questions");
+        alert("The selected file is not valid JSON");
       }
     };
     reader.readAsText(file);
