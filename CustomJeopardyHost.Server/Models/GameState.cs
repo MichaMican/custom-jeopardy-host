@@ -19,6 +19,7 @@ public class GameState
     public bool QuestionRevealed { get; set; }
     public bool BuzzerActive { get; set; }
     public List<BuzzIn> BuzzOrder { get; set; } = new();
+    public int HighlightedBuzzIndex { get; set; }
     public bool MediaPlaying { get; set; }
     public bool MozaikRevealing { get; set; }
     public bool QuestionTextRevealed { get; set; }

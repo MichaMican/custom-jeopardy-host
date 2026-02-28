@@ -116,6 +116,7 @@ public class GameService
         _gameState.QuestionRevealed = false;
         _gameState.BuzzerActive = false;
         _gameState.BuzzOrder.Clear();
+        _gameState.HighlightedBuzzIndex = 0;
         _gameState.MediaPlaying = false;
         _gameState.MozaikRevealing = false;
         _gameState.QuestionTextRevealed = false;
@@ -130,6 +131,7 @@ public class GameService
             _gameState.CurrentQuestion = null;
             _gameState.BuzzerActive = false;
             _gameState.BuzzOrder.Clear();
+            _gameState.HighlightedBuzzIndex = 0;
             _gameState.MediaPlaying = false;
             _gameState.MozaikRevealing = false;
             _gameState.QuestionTextRevealed = false;
@@ -175,6 +177,7 @@ public class GameService
     {
         _gameState.BuzzerActive = true;
         _gameState.BuzzOrder.Clear();
+        _gameState.HighlightedBuzzIndex = 0;
         await BroadcastGameState();
     }
 
@@ -205,6 +208,13 @@ public class GameService
     public async Task ClearBuzzOrder()
     {
         _gameState.BuzzOrder.Clear();
+        _gameState.HighlightedBuzzIndex = 0;
+        await BroadcastGameState();
+    }
+
+    public async Task SetHighlightedBuzzIndex(int index)
+    {
+        _gameState.HighlightedBuzzIndex = index;
         await BroadcastGameState();
     }
 

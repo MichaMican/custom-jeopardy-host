@@ -161,7 +161,7 @@ function Display() {
             <h3>Buzz Order</h3>
             <ol>
               {gameState.buzzOrder.map((buzz, index) => (
-                <li key={buzz.playerId} className={index === 0 ? "first-buzz" : ""}>
+                <li key={buzz.playerId} className={index === gameState.highlightedBuzzIndex ? "first-buzz" : ""}>
                   {buzz.playerName}
                 </li>
               ))}

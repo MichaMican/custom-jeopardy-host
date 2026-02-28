@@ -25,9 +25,7 @@ function RemoteControl() {
   const [showResetModal, setShowResetModal] = useState(false);
   const [editingScorePlayerId, setEditingScorePlayerId] = useState<string | null>(null);
   const [editingScoreValue, setEditingScoreValue] = useState("");
-  const [highlightedBuzzIndex, setHighlightedBuzzIndex] = useState(0);
   const hasRestoredRef = useRef(false);
-  const prevBuzzOrderLengthRef = useRef(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Auto-save game state to localStorage whenever it changes
@@ -63,15 +61,6 @@ function RemoteControl() {
     }
   }, [connectionStatus, gameState, invoke]);
 
-  // Reset highlighted buzz index when buzz order changes
-  const currentBuzzOrderLength = gameState?.buzzOrder.length ?? 0;
-  if (currentBuzzOrderLength !== prevBuzzOrderLengthRef.current) {
-    prevBuzzOrderLengthRef.current = currentBuzzOrderLength;
-    if (highlightedBuzzIndex !== 0) {
-      setHighlightedBuzzIndex(0);
-    }
-  }
-
   const handleReset = async () => {
     try {
       clearGameState();
@@ -82,6 +71,7 @@ function RemoteControl() {
         questionRevealed: false,
         buzzerActive: false,
         buzzOrder: [],
+        highlightedBuzzIndex: 0,
         mediaPlaying: false,
         mozaikRevealing: false,
         questionTextRevealed: false,
@@ -492,7 +482,7 @@ function RemoteControl() {
                     {gameState.buzzOrder.map((b, i) => (
                       <div
                         key={b.playerId}
-                        className={`buzz-entry ${i === highlightedBuzzIndex ? "highlighted" : ""}`}
+                        className={`buzz-entry ${i === gameState.highlightedBuzzIndex ? "highlighted" : ""}`}
                       >
                         {i + 1}. {b.playerName}
                       </div>
@@ -502,8 +492,8 @@ function RemoteControl() {
                     Clear Buzz Order
                   </button>
                   <button
-                    onClick={() => setHighlightedBuzzIndex((prev) => prev + 1)}
-                    disabled={highlightedBuzzIndex >= gameState.buzzOrder.length - 1}
+                    onClick={() => invoke("SetHighlightedBuzzIndex", gameState.highlightedBuzzIndex + 1)}
+                    disabled={gameState.highlightedBuzzIndex >= gameState.buzzOrder.length - 1}
                   >
                     Next Buzz
                   </button>
