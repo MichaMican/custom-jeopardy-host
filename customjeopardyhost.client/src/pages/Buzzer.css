@@ -1,7 +1,9 @@
 .buzzer-container {
+  width: 100%;
   max-width: 480px;
   margin: 0 auto;
   padding: 20px 16px;
+  box-sizing: border-box;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   display: flex;
   flex-direction: column;
@@ -51,8 +53,8 @@
 }
 
 .buzz-button {
-  width: 200px;
-  height: 200px;
+  width: clamp(160px, 50vw, 200px);
+  height: clamp(160px, 50vw, 200px);
   border-radius: 50%;
   font-size: 1.4rem;
   font-weight: 700;
