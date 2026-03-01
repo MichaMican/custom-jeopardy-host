@@ -27,7 +27,7 @@ updates:
           - "patch"
           
   - package-ecosystem: "npm"
-    directory: "/"
+    directory: "/customjeopardyhost.client"
     cooldown:
       default-days: 7
     schedule:
