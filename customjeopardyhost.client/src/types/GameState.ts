@@ -29,6 +29,13 @@ export interface BuzzIn {
   timestamp: string;
 }
 
+export interface PlayerAnswer {
+  playerId: string;
+  playerName: string;
+  answer: string;
+  timestamp: string;
+}
+
 export interface GameState {
   players: Player[];
   categories: Category[];
@@ -36,6 +43,7 @@ export interface GameState {
   questionRevealed: boolean;
   buzzerActive: boolean;
   buzzOrder: BuzzIn[];
+  playerAnswers: PlayerAnswer[];
   highlightedBuzzIndex: number;
   mediaPlaying: boolean;
   mozaikRevealing: boolean;

@@ -183,6 +183,49 @@
   box-shadow: 0 4px 16px rgba(245, 158, 11, 0.3);
 }
 
+.display-player-answers {
+  padding: 0 40px 24px;
+  text-align: center;
+}
+
+.display-player-answers h3 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.answers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.player-answer-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 20px;
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 10px;
+  text-align: left;
+}
+
+.answer-player-name {
+  font-weight: 700;
+  color: #818cf8;
+  min-width: 120px;
+}
+
+.answer-text {
+  color: #e2e8f0;
+  flex: 1;
+}
+
 .display-scoreboard {
   display: flex;
   justify-content: center;

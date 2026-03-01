@@ -19,6 +19,7 @@ public class GameState
     public bool QuestionRevealed { get; set; }
     public bool BuzzerActive { get; set; }
     public List<BuzzIn> BuzzOrder { get; set; } = new();
+    public List<PlayerAnswer> PlayerAnswers { get; set; } = new();
     public int HighlightedBuzzIndex { get; set; }
     public bool MediaPlaying { get; set; }
     public bool MozaikRevealing { get; set; }
@@ -55,5 +56,13 @@ public class BuzzIn
 {
     public string PlayerId { get; set; } = "";
     public string PlayerName { get; set; } = "";
+    public DateTime Timestamp { get; set; }
+}
+
+public class PlayerAnswer
+{
+    public string PlayerId { get; set; } = "";
+    public string PlayerName { get; set; } = "";
+    public string Answer { get; set; } = "";
     public DateTime Timestamp { get; set; }
 }
