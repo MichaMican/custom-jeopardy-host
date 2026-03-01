@@ -33,7 +33,7 @@ updates:
     schedule:
       interval: "quarterly"
     groups:
-      nuget-dependencies:
+      npm-dependencies:
         applies-to: version-updates
         update-types:
           - "minor"
