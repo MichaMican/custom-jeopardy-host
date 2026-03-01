@@ -1,0 +1,40 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    cooldown:
+      default-days: 7
+    schedule:
+      interval: "monthly"
+    groups:
+      action-dependencies:
+        applies-to: version-updates
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "nuget"
+    directory: "/CustomJeopardyHost.Server"
+    cooldown:
+      default-days: 7
+    schedule:
+      interval: "quarterly"
+    groups:
+      nuget-dependencies:
+        applies-to: version-updates
+        update-types:
+          - "minor"
+          - "patch"
+          
+  - package-ecosystem: "npm"
+    directory: "/customjeopardyhost.client"
+    cooldown:
+      default-days: 7
+    schedule:
+      interval: "quarterly"
+    groups:
+      npm-dependencies:
+        applies-to: version-updates
+        update-types:
+          - "minor"
+          - "patch"
