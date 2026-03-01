@@ -198,14 +198,6 @@ Vite configuration in `customjeopardyhost.client/vite.config.ts`:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## License
-
-This project is open source and available under the MIT License.
-
 ## Support
 
 For issues, questions, or contributions, please open an issue on the GitHub repository.
-
-## Acknowledgments
-
-Built with modern web technologies to bring the classic Jeopardy game experience to any device.
