@@ -36,6 +36,7 @@ export interface GameState {
   questionRevealed: boolean;
   buzzerActive: boolean;
   buzzOrder: BuzzIn[];
+  highlightedBuzzIndex: number;
   mediaPlaying: boolean;
   mozaikRevealing: boolean;
   questionTextRevealed: boolean;

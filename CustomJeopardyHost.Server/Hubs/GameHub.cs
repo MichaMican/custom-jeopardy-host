@@ -59,6 +59,8 @@ public class GameHub : Hub
 
     public async Task ClearBuzzOrder() => await _gameService.ClearBuzzOrder();
 
+    public async Task SetHighlightedBuzzIndex(int index) => await _gameService.SetHighlightedBuzzIndex(index);
+
     public async Task ImportGameSettings(GameState state) => await _gameService.ImportGameSettings(state);
 
     public async Task StartMedia() => await _gameService.StartMedia();
