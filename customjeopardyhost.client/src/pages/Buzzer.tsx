@@ -5,10 +5,16 @@ import "./Buzzer.css";
 function Buzzer() {
   const { gameState, connectionStatus, invoke } = useSignalR();
   const [selectedPlayerId, setSelectedPlayerId] = useState("");
+  const [playerAnswer, setPlayerAnswer] = useState("");
 
   const handleBuzzIn = async () => {
     if (!selectedPlayerId || !gameState?.buzzerActive) return;
     await invoke("BuzzIn", selectedPlayerId);
+  };
+
+  const handleSubmitAnswer = async () => {
+    if (!selectedPlayerId || !playerAnswer.trim()) return;
+    await invoke("SubmitPlayerAnswer", selectedPlayerId, playerAnswer.trim());
   };
 
   if (connectionStatus !== "Connected") {
@@ -78,6 +84,31 @@ function Buzzer() {
                 ? "Buzzed!"
                 : "BUZZ IN!"}
           </button>
+        )}
+
+        {selectedPlayerId && (
+          <div className="answer-input-container">
+            <label htmlFor="player-answer">Your Answer:</label>
+            <input
+              id="player-answer"
+              type="text"
+              value={playerAnswer}
+              onChange={(e) => setPlayerAnswer(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  handleSubmitAnswer();
+                }
+              }}
+              placeholder="Type your answer here..."
+            />
+            <button
+              onClick={handleSubmitAnswer}
+              disabled={!playerAnswer.trim()}
+              className="submit-answer-button"
+            >
+              Submit Answer
+            </button>
+          </div>
         )}
 
         {gameState.buzzOrder.length > 0 && (

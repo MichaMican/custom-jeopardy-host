@@ -116,6 +116,7 @@ public class GameService
         _gameState.QuestionRevealed = false;
         _gameState.BuzzerActive = false;
         _gameState.BuzzOrder.Clear();
+        _gameState.PlayerAnswers.Clear();
         _gameState.MediaPlaying = false;
         _gameState.MozaikRevealing = false;
         _gameState.QuestionTextRevealed = false;
@@ -130,6 +131,7 @@ public class GameService
             _gameState.CurrentQuestion = null;
             _gameState.BuzzerActive = false;
             _gameState.BuzzOrder.Clear();
+            _gameState.PlayerAnswers.Clear();
             _gameState.MediaPlaying = false;
             _gameState.MozaikRevealing = false;
             _gameState.QuestionTextRevealed = false;
@@ -208,11 +210,38 @@ public class GameService
         await BroadcastGameState();
     }
 
+    public async Task SubmitPlayerAnswer(string playerId, string answer)
+    {
+        var player = _gameState.Players.FirstOrDefault(p => p.Id == playerId);
+        if (player != null)
+        {
+            // Remove existing answer from this player if any
+            _gameState.PlayerAnswers.RemoveAll(a => a.PlayerId == playerId);
+            
+            // Add the new answer
+            _gameState.PlayerAnswers.Add(new PlayerAnswer
+            {
+                PlayerId = playerId,
+                PlayerName = player.Name,
+                Answer = answer,
+                Timestamp = DateTime.UtcNow
+            });
+            await BroadcastGameState();
+        }
+    }
+
+    public async Task ClearPlayerAnswers()
+    {
+        _gameState.PlayerAnswers.Clear();
+        await BroadcastGameState();
+    }
+
     public async Task ImportGameSettings(GameState state)
     {
         state.Players ??= new();
         state.Categories ??= new();
         state.BuzzOrder ??= new();
+        state.PlayerAnswers ??= new();
         _gameState = state;
         await BroadcastGameState();
     }

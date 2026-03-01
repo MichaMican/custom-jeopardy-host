@@ -168,6 +168,19 @@ function Display() {
             </ol>
           </div>
         )}
+        {gameState.playerAnswers && gameState.playerAnswers.length > 0 && (
+          <div className="display-player-answers">
+            <h3>Player Answers</h3>
+            <div className="answers-list">
+              {gameState.playerAnswers.map((answer) => (
+                <div key={answer.playerId} className="player-answer-item">
+                  <span className="answer-player-name">{answer.playerName}:</span>
+                  <span className="answer-text">{answer.answer}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         <div className="display-scoreboard">
           {gameState.players.map((player) => (
             <div key={player.id} className="display-player-score">
