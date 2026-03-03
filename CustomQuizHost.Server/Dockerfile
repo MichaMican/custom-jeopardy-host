@@ -19,21 +19,21 @@ RUN apt-get -y install nodejs
 FROM with-node AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["CustomJeopardyHost.Server/CustomJeopardyHost.Server.csproj", "CustomJeopardyHost.Server/"]
-COPY ["customjeopardyhost.client/customjeopardyhost.client.esproj", "customjeopardyhost.client/"]
-RUN dotnet restore "./CustomJeopardyHost.Server/CustomJeopardyHost.Server.csproj"
+COPY ["CustomQuizHost.Server/CustomQuizHost.Server.csproj", "CustomQuizHost.Server/"]
+COPY ["customquizhost.client/customquizhost.client.esproj", "customquizhost.client/"]
+RUN dotnet restore "./CustomQuizHost.Server/CustomQuizHost.Server.csproj"
 COPY . .
-WORKDIR "/src/CustomJeopardyHost.Server"
-RUN dotnet build "./CustomJeopardyHost.Server.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/CustomQuizHost.Server"
+RUN dotnet build "./CustomQuizHost.Server.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./CustomJeopardyHost.Server.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./CustomQuizHost.Server.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 RUN mkdir -p /app/uploads
-ENTRYPOINT ["dotnet", "CustomJeopardyHost.Server.dll"]
+ENTRYPOINT ["dotnet", "CustomQuizHost.Server.dll"]

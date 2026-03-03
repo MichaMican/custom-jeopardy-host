@@ -175,7 +175,7 @@ function RemoteControl() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "jeopardy-game.json";
+    a.download = "quiz-game.json";
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
@@ -189,7 +189,7 @@ function RemoteControl() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "jeopardy-questions.json";
+    a.download = "quiz-questions.json";
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   };

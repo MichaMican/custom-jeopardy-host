@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="customquizhost.client/customquizhost.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="CustomQuizHost.Server/CustomQuizHost.Server.csproj" />
+</Solution>

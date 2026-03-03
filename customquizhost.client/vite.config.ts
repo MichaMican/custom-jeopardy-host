@@ -12,7 +12,7 @@ const baseFolder =
 
 fs.mkdirSync(baseFolder, { recursive: true });
 
-const certificateName = "CustomJeopardyHost.Server";
+const certificateName = "CustomQuizHost.Server";
 const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
 const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
 

@@ -8,7 +8,7 @@ Desktop.ini
 .DS_Store
 
 ## Build artifacts
-CustomJeopardyHost.Server/wwwroot/
+CustomQuizHost.Server/wwwroot/
 **/obj/
 **/obj*/
 **/bin/
@@ -16,4 +16,4 @@ CustomJeopardyHost.Server/wwwroot/
 **/dist/
 
 ## Uploaded media files
-CustomJeopardyHost.Server/uploads/
+CustomQuizHost.Server/uploads/

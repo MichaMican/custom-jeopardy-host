@@ -1,6 +1,6 @@
 import type { GameState } from "../types/GameState";
 
-const STORAGE_KEY = "jeopardy-game-state";
+const STORAGE_KEY = "quiz-game-state";
 
 export function saveGameState(state: GameState): void {
   try {

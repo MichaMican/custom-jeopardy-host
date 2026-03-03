@@ -1,7 +1,7 @@
-using CustomJeopardyHost.Server.Services;
+using CustomQuizHost.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CustomJeopardyHost.Server.Controllers
+namespace CustomQuizHost.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

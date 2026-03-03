@@ -1,8 +1,8 @@
-using CustomJeopardyHost.Server.Models;
-using CustomJeopardyHost.Server.Services;
+using CustomQuizHost.Server.Models;
+using CustomQuizHost.Server.Services;
 using Microsoft.AspNetCore.SignalR;
 
-namespace CustomJeopardyHost.Server.Hubs;
+namespace CustomQuizHost.Server.Hubs;
 
 public class GameHub : Hub
 {
