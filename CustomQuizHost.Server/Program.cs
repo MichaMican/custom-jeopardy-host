@@ -1,5 +1,5 @@
-using CustomJeopardyHost.Server.Hubs;
-using CustomJeopardyHost.Server.Services;
+using CustomQuizHost.Server.Hubs;
+using CustomQuizHost.Server.Services;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);

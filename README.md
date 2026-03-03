@@ -1,6 +1,6 @@
 # Custom Quiz Host
 
-A web-based Uiz game hosting application built with ASP.NET Core and React. This application allows you to create and host interactive Jeopardy games with multiple players, custom categories, questions, and multimedia support including images and audio.
+A web-based Uiz game hosting application built with ASP.NET Core and React. This application allows you to create and host interactive Quiz games with multiple players, custom categories, questions, and multimedia support including images and audio.
 
 ## Features
 
@@ -46,8 +46,8 @@ The easiest way to get started is with Docker Compose using the pre-built image 
 
    ```yaml
    services:
-     custom-jeopardy-host:
-       image: ghcr.io/michamican/custom-jeopardy-host:latest
+     custom-quiz-host:
+       image: ghcr.io/michamican/custom-quiz-host:latest
        ports:
          - "8080:8080"
        volumes:
@@ -82,13 +82,13 @@ Uploaded media files (images, audio) are persisted in the `uploads` Docker volum
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/MichaMican/custom-jeopardy-host.git
-   cd custom-jeopardy-host
+   git clone https://github.com/MichaMican/custom-quiz-host.git
+   cd custom-quiz-host
    ```
 
 2. **Install frontend dependencies**
    ```bash
-   cd customjeopardyhost.client
+   cd customquizhost.client
    npm install
    cd ..
    ```
@@ -97,18 +97,18 @@ Uploaded media files (images, audio) are persisted in the `uploads` Docker volum
    
    Option A: Using .NET CLI (runs both frontend and backend)
    ```bash
-   cd CustomJeopardyHost.Server
+   cd CustomQuizHost.Server
    dotnet run
    ```
    
    Option B: Run frontend and backend separately
    ```bash
    # Terminal 1 - Backend
-   cd CustomJeopardyHost.Server
+   cd CustomQuizHost.Server
    dotnet run
    
    # Terminal 2 - Frontend
-   cd customjeopardyhost.client
+   cd customquizhost.client
    npm run dev
    ```
 
@@ -121,12 +121,12 @@ Uploaded media files (images, audio) are persisted in the `uploads` Docker volum
 
 1. **Build the Docker image**
    ```bash
-   docker build -f CustomJeopardyHost.Server/Dockerfile -t custom-jeopardy-host .
+   docker build -f CustomQuizHost.Server/Dockerfile -t custom-quiz-host .
    ```
 
 2. **Run the container**
    ```bash
-   docker run -p 8080:8080 -p 8081:8081 custom-jeopardy-host
+   docker run -p 8080:8080 -p 8081:8081 custom-quiz-host
    ```
 
 3. **Access the application**
@@ -171,14 +171,14 @@ Uploaded media files (images, audio) are persisted in the `uploads` Docker volum
 ## Project Structure
 
 ```
-custom-jeopardy-host/
-├── CustomJeopardyHost.Server/       # ASP.NET Core backend
+custom-quiz-host/
+├── CustomQuizHost.Server/       # ASP.NET Core backend
 │   ├── Controllers/                 # API controllers
 │   ├── Hubs/                       # SignalR hubs
 │   ├── Models/                     # Data models
 │   ├── Services/                   # Business logic
 │   └── Program.cs                  # Application entry point
-├── customjeopardyhost.client/       # React frontend
+├── customquizhost.client/       # React frontend
 │   ├── src/
 │   │   ├── pages/                  # React page components
 │   │   ├── hooks/                  # Custom React hooks
@@ -193,7 +193,7 @@ custom-jeopardy-host/
 ### Frontend Development
 
 ```bash
-cd customjeopardyhost.client
+cd customquizhost.client
 npm run dev          # Start development server
 npm run build        # Build for production
 npm run lint         # Run ESLint
@@ -202,7 +202,7 @@ npm run lint         # Run ESLint
 ### Backend Development
 
 ```bash
-cd CustomJeopardyHost.Server
+cd CustomQuizHost.Server
 dotnet build         # Build the project
 dotnet run          # Run the application
 ```
@@ -211,14 +211,14 @@ dotnet run          # Run the application
 
 ### Backend Configuration
 
-Configuration can be modified in `CustomJeopardyHost.Server/appsettings.json`:
+Configuration can be modified in `CustomQuizHost.Server/appsettings.json`:
 - Logging levels
 - CORS settings (if needed)
 - SignalR configuration
 
 ### Frontend Configuration
 
-Vite configuration in `customjeopardyhost.client/vite.config.ts`:
+Vite configuration in `customquizhost.client/vite.config.ts`:
 - Proxy settings for API calls
 - Build optimization settings
 

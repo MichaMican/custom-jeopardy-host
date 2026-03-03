@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace CustomJeopardyHost.Server.Models;
+namespace CustomQuizHost.Server.Models;
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum QuestionType

@@ -1,0 +1,6 @@
+@CustomQuizHost.Server_HostAddress = http://localhost:5200
+
+GET {{CustomQuizHost.Server_HostAddress}}/api/game/
+Accept: application/json
+
+###

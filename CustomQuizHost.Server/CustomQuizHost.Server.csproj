@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>4f7254b7-7bc1-4016-be45-9b2fee3eb4a0</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <SpaRoot>..\customjeopardyhost.client</SpaRoot>
+    <SpaRoot>..\customquizhost.client</SpaRoot>
     <SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
     <SpaProxyServerUrl>https://localhost:53882</SpaProxyServerUrl>
   </PropertyGroup>
@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\customjeopardyhost.client\customjeopardyhost.client.esproj">
+    <ProjectReference Include="..\customquizhost.client\customquizhost.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>

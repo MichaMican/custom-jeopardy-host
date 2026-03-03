@@ -14,7 +14,7 @@ updates:
           - "patch"
 
   - package-ecosystem: "nuget"
-    directory: "/CustomJeopardyHost.Server"
+    directory: "/CustomQuizHost.Server"
     cooldown:
       default-days: 7
     schedule:
@@ -27,7 +27,7 @@ updates:
           - "patch"
           
   - package-ecosystem: "npm"
-    directory: "/customjeopardyhost.client"
+    directory: "/customquizhost.client"
     cooldown:
       default-days: 7
     schedule:
