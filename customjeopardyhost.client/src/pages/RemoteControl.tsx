@@ -194,7 +194,7 @@ function RemoteControl() {
           zip.file(`uploads/${name}`, await resp.blob());
         }
       } catch {
-        // skip files that can't be fetched
+        console.warn(`Failed to fetch media file: ${name}`);
       }
     }
     return zip.generateAsync({ type: "blob" });
@@ -224,8 +224,13 @@ function RemoteControl() {
           nameMap.set(name, data.fileName);
         }
       } catch {
-        // skip files that fail to upload
+        console.warn(`Failed to upload media file: ${name}`);
       }
+    }
+
+    const failed = mediaNames.filter((n) => !nameMap.has(n));
+    if (failed.length > 0) {
+      alert(`Some media files could not be uploaded: ${failed.join(", ")}`);
     }
 
     return categories.map((cat) => ({
