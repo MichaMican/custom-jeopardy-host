@@ -20,7 +20,7 @@ namespace CustomQuizHost.Server.Controllers
 
         [HttpPost]
         [RequestSizeLimit(50_000_000)] // 50 MB
-        public async Task<IActionResult> Upload(IFormFile file)
+        public async Task<IActionResult> Upload(IFormFile file, [FromQuery] bool preserveFileName = false)
         {
             if (file == null || file.Length == 0)
                 return BadRequest("No file provided.");
@@ -32,7 +32,25 @@ namespace CustomQuizHost.Server.Controllers
             var uploadsPath = Path.Combine(_env.ContentRootPath, "uploads");
             Directory.CreateDirectory(uploadsPath);
 
-            var fileName = $"{Guid.NewGuid()}{extension}";
+            string fileName;
+            if (preserveFileName)
+            {
+                var originalName = Path.GetFileName(file.FileName);
+                var nameWithoutExt = Path.GetFileNameWithoutExtension(originalName);
+                if (Guid.TryParse(nameWithoutExt, out _))
+                {
+                    fileName = originalName;
+                }
+                else
+                {
+                    fileName = $"{Guid.NewGuid()}{extension}";
+                }
+            }
+            else
+            {
+                fileName = $"{Guid.NewGuid()}{extension}";
+            }
+
             var filePath = Path.Combine(uploadsPath, fileName);
 
             using (var stream = new FileStream(filePath, FileMode.Create))

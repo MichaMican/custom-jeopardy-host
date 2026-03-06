@@ -215,7 +215,7 @@ function RemoteControl() {
         const blob = await file.async("blob");
         const formData = new FormData();
         formData.append("file", blob, name);
-        const response = await fetch("/api/upload", {
+        const response = await fetch("/api/upload?preserveFileName=true", {
           method: "POST",
           body: formData,
         });
