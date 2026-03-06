@@ -119,6 +119,7 @@ public class GameService
         _gameState.PlayerAnswers.Clear();
         _gameState.HighlightedBuzzIndex = 0;
         _gameState.MediaPlaying = false;
+        _gameState.MediaVolume = 1.0;
         _gameState.MozaikRevealing = false;
         _gameState.QuestionTextRevealed = false;
         _gameState.PlayerAnswersRevealed = false;
@@ -137,6 +138,7 @@ public class GameService
             _gameState.PlayerAnswers.Clear();
             _gameState.HighlightedBuzzIndex = 0;
             _gameState.MediaPlaying = false;
+            _gameState.MediaVolume = 1.0;
             _gameState.MozaikRevealing = false;
             _gameState.QuestionTextRevealed = false;
             _gameState.PlayerAnswersRevealed = false;
@@ -309,6 +311,12 @@ public class GameService
     public async Task StopMedia()
     {
         _gameState.MediaPlaying = false;
+        await BroadcastGameState();
+    }
+
+    public async Task SetMediaVolume(double volume)
+    {
+        _gameState.MediaVolume = Math.Clamp(volume, 0.0, 1.0);
         await BroadcastGameState();
     }
 

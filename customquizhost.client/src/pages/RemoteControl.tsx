@@ -79,6 +79,7 @@ function RemoteControl() {
         playerAnswers: [],
         highlightedBuzzIndex: 0,
         mediaPlaying: false,
+        mediaVolume: 1,
         mozaikRevealing: false,
         questionTextRevealed: false,
         playerAnswersRevealed: false,
@@ -781,6 +782,21 @@ function RemoteControl() {
                     >
                       {gameState.mediaPlaying ? "⏸ Stop Audio" : "▶ Play Audio"}
                     </button>
+                  )}
+                  {gameState.currentQuestion.questionType === "Audio" && (
+                    <div className="volume-control">
+                      <label htmlFor="volume-slider">🔊 Volume</label>
+                      <input
+                        id="volume-slider"
+                        type="range"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        value={gameState.mediaVolume}
+                        onChange={(e) => invoke("SetMediaVolume", parseFloat(e.target.value))}
+                      />
+                      <span className="volume-value">{Math.round(gameState.mediaVolume * 100)}%</span>
+                    </div>
                   )}
                   {gameState.currentQuestion.questionType === "ImageMozaik" && (
                     <button

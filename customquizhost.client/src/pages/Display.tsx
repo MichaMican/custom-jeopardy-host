@@ -3,10 +3,11 @@ import type { Question } from "../types/GameState";
 import { useEffect, useRef, useState } from "react";
 import "./Display.css";
 
-function QuestionDisplay({ question, revealed, mediaPlaying, mozaikRevealing, questionTextRevealed, answerRevealed }: {
+function QuestionDisplay({ question, revealed, mediaPlaying, mediaVolume, mozaikRevealing, questionTextRevealed, answerRevealed }: {
   question: Question;
   revealed: boolean;
   mediaPlaying: boolean;
+  mediaVolume: number;
   mozaikRevealing: boolean;
   questionTextRevealed: boolean;
   answerRevealed: boolean;
@@ -25,6 +26,12 @@ function QuestionDisplay({ question, revealed, mediaPlaying, mozaikRevealing, qu
       audioRef.current.pause();
     }
   }, [mediaPlaying, question.questionType]);
+
+  // Audio volume control
+  useEffect(() => {
+    if (question.questionType !== "Audio" || !audioRef.current) return;
+    audioRef.current.volume = mediaVolume;
+  }, [mediaVolume, question.questionType]);
 
   // Mozaik blur animation
   useEffect(() => {
@@ -163,6 +170,7 @@ function Display() {
             question={gameState.currentQuestion}
             revealed={gameState.questionRevealed}
             mediaPlaying={gameState.mediaPlaying}
+            mediaVolume={gameState.mediaVolume}
             mozaikRevealing={gameState.mozaikRevealing}
             questionTextRevealed={gameState.questionTextRevealed}
             answerRevealed={gameState.answerRevealed}

@@ -22,6 +22,7 @@ public class GameState
     public List<PlayerAnswer> PlayerAnswers { get; set; } = new();
     public int HighlightedBuzzIndex { get; set; }
     public bool MediaPlaying { get; set; }
+    public double MediaVolume { get; set; } = 1.0;
     public bool MozaikRevealing { get; set; }
     public bool QuestionTextRevealed { get; set; }
     public bool PlayerAnswersRevealed { get; set; }
