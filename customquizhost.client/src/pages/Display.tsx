@@ -138,17 +138,18 @@ function Display() {
   const buzzerAudioRef = useRef<HTMLAudioElement>(null);
   const prevBuzzCountRef = useRef(0);
 
+  const buzzCount = gameState?.buzzOrder.length ?? 0;
+
   // Play buzzer sound when a new player buzzes in
   useEffect(() => {
-    const currentCount = gameState?.buzzOrder.length ?? 0;
-    if (currentCount > prevBuzzCountRef.current && buzzerAudioRef.current) {
+    if (buzzCount > prevBuzzCountRef.current && buzzerAudioRef.current) {
       buzzerAudioRef.current.currentTime = 0;
       buzzerAudioRef.current.play().catch((err) => {
         console.error("Buzzer sound playback failed:", err);
       });
     }
-    prevBuzzCountRef.current = currentCount;
-  }, [gameState?.buzzOrder]);
+    prevBuzzCountRef.current = buzzCount;
+  }, [buzzCount]);
 
   if (connectionStatus !== "Connected") {
     return (
@@ -168,76 +169,65 @@ function Display() {
     );
   }
 
-  if (gameState.currentQuestion) {
-    return (
-      <div className="display-container">
-        <audio ref={buzzerAudioRef} src="/buzzer.mp3" preload="auto" />
-        <div className="display-question">
-          <QuestionDisplay
-            key={gameState.currentQuestion.id}
-            question={gameState.currentQuestion}
-            revealed={gameState.questionRevealed}
-            mediaPlaying={gameState.mediaPlaying}
-            mozaikRevealing={gameState.mozaikRevealing}
-            questionTextRevealed={gameState.questionTextRevealed}
-            answerRevealed={gameState.answerRevealed}
-          />
-        </div>
-        {gameState.buzzerActive && gameState.buzzOrder.length > 0 && (
-          <div className="display-buzz-order">
-            <h3>Buzz Order</h3>
-            <ol>
-              {gameState.buzzOrder.map((buzz, index) => (
-                <li key={buzz.playerId} className={index === gameState.highlightedBuzzIndex ? "first-buzz" : ""}>
-                  {buzz.playerName}
-                </li>
-              ))}
-            </ol>
-          </div>
-        )}
-        {gameState.playerAnswersRevealed && gameState.playerAnswers && gameState.playerAnswers.length > 0 && (
-          <div className="display-player-answers">
-            <h3>Player Answers</h3>
-            <div className="answers-list">
-              {gameState.playerAnswers.map((answer) => (
-                <div key={answer.playerId} className="player-answer-item">
-                  <span className="answer-player-name">{answer.playerName}:</span>
-                  <span className="answer-text">{answer.answer}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-        <div className="display-scoreboard">
-          {gameState.players.map((player) => (
-            <div key={player.id} className="display-player-score">
-              <span className="player-name">{player.name}</span>
-              <span className="player-score">{player.score}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="display-container">
       <audio ref={buzzerAudioRef} src="/buzzer.mp3" preload="auto" />
-      <div className="display-board">
-        {gameState.categories.map((category) => (
-          <div key={category.id} className="display-category">
-            <div className="display-category-header">{category.name}</div>
-            {category.questions.map((question) => (
-              <div
-                key={question.id}
-                className={`display-cell ${question.isAnswered ? "answered" : ""}`}
-              >
-                {!question.isAnswered ? question.points : ""}
-              </div>
-            ))}
+      {gameState.currentQuestion ? (
+        <>
+          <div className="display-question">
+            <QuestionDisplay
+              key={gameState.currentQuestion.id}
+              question={gameState.currentQuestion}
+              revealed={gameState.questionRevealed}
+              mediaPlaying={gameState.mediaPlaying}
+              mozaikRevealing={gameState.mozaikRevealing}
+              questionTextRevealed={gameState.questionTextRevealed}
+              answerRevealed={gameState.answerRevealed}
+            />
           </div>
-        ))}
-      </div>
+          {gameState.buzzerActive && gameState.buzzOrder.length > 0 && (
+            <div className="display-buzz-order">
+              <h3>Buzz Order</h3>
+              <ol>
+                {gameState.buzzOrder.map((buzz, index) => (
+                  <li key={buzz.playerId} className={index === gameState.highlightedBuzzIndex ? "first-buzz" : ""}>
+                    {buzz.playerName}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+          {gameState.playerAnswersRevealed && gameState.playerAnswers && gameState.playerAnswers.length > 0 && (
+            <div className="display-player-answers">
+              <h3>Player Answers</h3>
+              <div className="answers-list">
+                {gameState.playerAnswers.map((answer) => (
+                  <div key={answer.playerId} className="player-answer-item">
+                    <span className="answer-player-name">{answer.playerName}:</span>
+                    <span className="answer-text">{answer.answer}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
+      ) : (
+        <div className="display-board">
+          {gameState.categories.map((category) => (
+            <div key={category.id} className="display-category">
+              <div className="display-category-header">{category.name}</div>
+              {category.questions.map((question) => (
+                <div
+                  key={question.id}
+                  className={`display-cell ${question.isAnswered ? "answered" : ""}`}
+                >
+                  {!question.isAnswered ? question.points : ""}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
       <div className="display-scoreboard">
         {gameState.players.map((player) => (
           <div key={player.id} className="display-player-score">
