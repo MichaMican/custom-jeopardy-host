@@ -212,9 +212,21 @@ function Display() {
           )}
         </>
       ) : (
-        <div className="display-board">
+        <div
+          className="display-board"
+          style={{
+            gridTemplateColumns: `repeat(${gameState.categories.length}, 1fr)`,
+            gridTemplateRows: `auto repeat(${Math.max(...gameState.categories.map(c => c.questions.length))}, 1fr)`,
+          }}
+        >
           {gameState.categories.map((category) => (
-            <div key={category.id} className="display-category">
+            <div
+              key={category.id}
+              className="display-category"
+              style={{
+                gridRow: `span ${Math.max(...gameState.categories.map(c => c.questions.length)) + 1}`,
+              }}
+            >
               <div className="display-category-header">{category.name}</div>
               {category.questions.map((question) => (
                 <div
