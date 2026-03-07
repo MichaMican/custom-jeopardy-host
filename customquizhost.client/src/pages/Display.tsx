@@ -135,6 +135,20 @@ function QuestionDisplay({ question, revealed, mediaPlaying, mozaikRevealing, qu
 
 function Display() {
   const { gameState, connectionStatus } = useSignalR();
+  const buzzerAudioRef = useRef<HTMLAudioElement>(null);
+  const prevBuzzCountRef = useRef(0);
+
+  // Play buzzer sound when a new player buzzes in
+  useEffect(() => {
+    const currentCount = gameState?.buzzOrder.length ?? 0;
+    if (currentCount > prevBuzzCountRef.current && buzzerAudioRef.current) {
+      buzzerAudioRef.current.currentTime = 0;
+      buzzerAudioRef.current.play().catch((err) => {
+        console.error("Buzzer sound playback failed:", err);
+      });
+    }
+    prevBuzzCountRef.current = currentCount;
+  }, [gameState?.buzzOrder]);
 
   if (connectionStatus !== "Connected") {
     return (
@@ -157,6 +171,7 @@ function Display() {
   if (gameState.currentQuestion) {
     return (
       <div className="display-container">
+        <audio ref={buzzerAudioRef} src="/buzzer.mp3" preload="auto" />
         <div className="display-question">
           <QuestionDisplay
             key={gameState.currentQuestion.id}
@@ -207,6 +222,7 @@ function Display() {
 
   return (
     <div className="display-container">
+      <audio ref={buzzerAudioRef} src="/buzzer.mp3" preload="auto" />
       <div className="display-board">
         {gameState.categories.map((category) => (
           <div key={category.id} className="display-category">
