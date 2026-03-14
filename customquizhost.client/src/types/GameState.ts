@@ -53,4 +53,5 @@ export interface GameState {
   answerRevealed: boolean;
   mediaVolume: number;
   pauseOnBuzz: boolean;
+  imageFullscreen: boolean;
 }

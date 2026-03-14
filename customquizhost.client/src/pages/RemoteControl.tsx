@@ -23,6 +23,7 @@ function RemoteControl() {
   const [questionPoints, setQuestionPoints] = useState(200);
   const [questionType, setQuestionType] = useState<QuestionType>("Standard");
   const [mediaFile, setMediaFile] = useState<File | null>(null);
+  const [existingMediaFileName, setExistingMediaFileName] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadMessage, setUploadMessage] = useState("");
@@ -90,6 +91,7 @@ function RemoteControl() {
         answerRevealed: false,
         mediaVolume: 70,
         pauseOnBuzz: false,
+        imageFullscreen: false,
       };
       await invoke("ImportGameSettings", emptyState);
       setShowResetModal(false);
@@ -113,7 +115,7 @@ function RemoteControl() {
   const handleAddQuestion = async () => {
     if (!selectedCategoryId) return;
     if (questionType === "Standard" && !questionText.trim()) return;
-    if (questionType !== "Standard" && !mediaFile) return;
+    if (questionType !== "Standard" && !mediaFile && !existingMediaFileName) return;
 
     let mediaFileName: string | null = null;
 
@@ -133,6 +135,8 @@ function RemoteControl() {
         return;
       }
       setUploading(false);
+    } else if (existingMediaFileName) {
+      mediaFileName = existingMediaFileName;
     }
 
     await invoke(
@@ -147,6 +151,7 @@ function RemoteControl() {
     setQuestionText("");
     setQuestionAnswer("");
     setMediaFile(null);
+    setExistingMediaFileName(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -159,6 +164,7 @@ function RemoteControl() {
     setQuestionAnswer(question.answer);
     setQuestionPoints(question.points);
     setQuestionType(question.questionType);
+    setExistingMediaFileName(question.mediaFileName ?? null);
     setMediaFile(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -493,10 +499,18 @@ function RemoteControl() {
                       ref={fileInputRef}
                       type="file"
                       accept={questionType === "Audio" ? "audio/*" : "image/*"}
-                      onChange={(e) => setMediaFile(e.target.files?.[0] ?? null)}
+                      onChange={(e) => {
+                        setMediaFile(e.target.files?.[0] ?? null);
+                        if (e.target.files?.[0]) {
+                          setExistingMediaFileName(null);
+                        }
+                      }}
                     />
                     {mediaFile && (
                       <span className="file-name">{mediaFile.name}</span>
+                    )}
+                    {!mediaFile && existingMediaFileName && (
+                      <span className="file-name">Current file: {existingMediaFileName}</span>
                     )}
                   </div>
                   <input
@@ -794,7 +808,7 @@ function RemoteControl() {
                       : "Show Question"}
                 </button>
               )}
-              {gameState.questionRevealed && (gameState.currentQuestion.questionType === "Audio" || gameState.currentQuestion.questionType === "ImageMozaik") && (
+              {gameState.questionRevealed && (gameState.currentQuestion.questionType === "Audio" || gameState.currentQuestion.questionType === "ImageMozaik" || gameState.currentQuestion.questionType === "Image") && (
                 <div className="media-controls">
                   {gameState.currentQuestion.questionType === "Audio" && (
                     <>
@@ -837,6 +851,14 @@ function RemoteControl() {
                         />
                       </div>
                     </>
+                  )}
+                  {(gameState.currentQuestion.questionType === "Image" || gameState.currentQuestion.questionType === "ImageMozaik") && (
+                    <button
+                      className={`btn-media ${gameState.imageFullscreen ? "active" : ""}`}
+                      onClick={() => invoke(gameState.imageFullscreen ? "DisableImageFullscreen" : "EnableImageFullscreen")}
+                    >
+                      {gameState.imageFullscreen ? "🗗 Exit Fullscreen" : "🗖 Image Fullscreen"}
+                    </button>
                   )}
                 </div>
               )}

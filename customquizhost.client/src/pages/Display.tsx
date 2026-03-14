@@ -3,7 +3,7 @@ import type { Question } from "../types/GameState";
 import { useEffect, useRef, useState } from "react";
 import "./Display.css";
 
-function QuestionDisplay({ question, revealed, mediaPlaying, mozaikRevealing, mozaikRevealSpeed, questionTextRevealed, answerRevealed, mediaVolume }: {
+function QuestionDisplay({ question, revealed, mediaPlaying, mozaikRevealing, mozaikRevealSpeed, questionTextRevealed, answerRevealed, mediaVolume, imageFullscreen }: {
   question: Question;
   revealed: boolean;
   mediaPlaying: boolean;
@@ -12,6 +12,7 @@ function QuestionDisplay({ question, revealed, mediaPlaying, mozaikRevealing, mo
   questionTextRevealed: boolean;
   answerRevealed: boolean;
   mediaVolume: number;
+  imageFullscreen: boolean;
 }) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [mozaikBlur, setMozaikBlur] = useState(40);
@@ -72,18 +73,18 @@ function QuestionDisplay({ question, revealed, mediaPlaying, mozaikRevealing, mo
     case "Image":
       return (
         <>
-          <div className="display-question-points">{question.points}</div>
+          {!imageFullscreen && <div className="display-question-points">{question.points}</div>}
           {mediaUrl && (
             <img
               src={mediaUrl}
               alt="Question"
-              className="display-question-image"
+              className={`display-question-image${imageFullscreen ? " fullscreen" : ""}`}
             />
           )}
-          {questionTextRevealed && question.text && (
+          {!imageFullscreen && questionTextRevealed && question.text && (
             <div className="display-question-text">{question.text}</div>
           )}
-          {answerRevealed && (
+          {!imageFullscreen && answerRevealed && (
             <div className="display-answer-text">{question.answer}</div>
           )}
         </>
@@ -92,19 +93,19 @@ function QuestionDisplay({ question, revealed, mediaPlaying, mozaikRevealing, mo
     case "ImageMozaik":
       return (
         <>
-          <div className="display-question-points">{question.points}</div>
+          {!imageFullscreen && <div className="display-question-points">{question.points}</div>}
           {mediaUrl && (
             <img
               src={mediaUrl}
               alt="Question"
-              className="display-question-image mozaik"
+              className={`display-question-image mozaik${imageFullscreen ? " fullscreen" : ""}`}
               style={{ filter: `blur(${mozaikBlur}px)` }}
             />
           )}
-          {questionTextRevealed && question.text && (
+          {!imageFullscreen && questionTextRevealed && question.text && (
             <div className="display-question-text">{question.text}</div>
           )}
-          {answerRevealed && (
+          {!imageFullscreen && answerRevealed && (
             <div className="display-answer-text">{question.answer}</div>
           )}
         </>
@@ -319,6 +320,7 @@ function Display() {
                 questionTextRevealed={gameState.questionTextRevealed}
                 answerRevealed={gameState.answerRevealed}
                 mediaVolume={gameState.mediaVolume}
+                imageFullscreen={gameState.imageFullscreen}
               />
             </div>
             {gameState.buzzerActive && gameState.buzzOrder.length > 0 && (
