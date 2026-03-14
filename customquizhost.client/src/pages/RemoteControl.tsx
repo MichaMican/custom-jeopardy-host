@@ -7,6 +7,8 @@ import {
   loadGameState,
   clearGameState,
 } from "../utils/localStorage";
+import { uploadFileWithProgress } from "../utils/uploadWithProgress";
+import UploadProgressModal from "../components/UploadProgressModal";
 import "./RemoteControl.css";
 
 const POINT_LEVELS = [200, 400, 600, 800, 1000];
@@ -22,6 +24,8 @@ function RemoteControl() {
   const [questionType, setQuestionType] = useState<QuestionType>("Standard");
   const [mediaFile, setMediaFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploadMessage, setUploadMessage] = useState("");
   const [tab, setTab] = useState<"setup" | "host">("setup");
   const [showResetModal, setShowResetModal] = useState(false);
   const [editingScorePlayerId, setEditingScorePlayerId] = useState<string | null>(null);
@@ -113,19 +117,13 @@ function RemoteControl() {
 
     if (mediaFile) {
       setUploading(true);
+      setUploadProgress(0);
+      setUploadMessage("Uploading file…");
       try {
-        const formData = new FormData();
-        formData.append("file", mediaFile);
-        const response = await fetch("/api/upload", {
-          method: "POST",
-          body: formData,
-        });
-        if (!response.ok) {
-          alert("Failed to upload file.");
-          setUploading(false);
-          return;
-        }
-        const data = await response.json();
+        const data = await uploadFileWithProgress(
+          mediaFile,
+          (percent) => setUploadProgress(percent),
+        );
         mediaFileName = data.fileName;
       } catch {
         alert("Failed to upload file.");
@@ -211,23 +209,32 @@ function RemoteControl() {
         mediaFiles.push({ name: relativePath, file });
       }
     });
-    for (const { name, file } of mediaFiles) {
+    if (mediaFiles.length === 0) return fileNameMap;
+
+    setUploading(true);
+    setUploadProgress(0);
+
+    for (let i = 0; i < mediaFiles.length; i++) {
+      const { name, file } = mediaFiles[i];
+      setUploadMessage(`Uploading file ${i + 1} of ${mediaFiles.length}: ${name}`);
       try {
         const blob = await file.async("blob");
-        const formData = new FormData();
-        formData.append("file", blob, name);
-        const response = await fetch("/api/upload?preserveFileName=true", {
-          method: "POST",
-          body: formData,
-        });
-        if (response.ok) {
-          const data = await response.json();
-          fileNameMap.set(name, data.fileName);
-        }
+        const data = await uploadFileWithProgress(
+          blob,
+          (percent) => {
+            const overallProgress = ((i + percent / 100) / mediaFiles.length) * 100;
+            setUploadProgress(overallProgress);
+          },
+          name,
+          true,
+        );
+        fileNameMap.set(name, data.fileName);
       } catch {
         console.warn(`Failed to upload media file: ${name}`);
       }
     }
+
+    setUploading(false);
     return fileNameMap;
   };
 
@@ -915,6 +922,12 @@ function RemoteControl() {
           </div>
         </div>
       )}
+
+      <UploadProgressModal
+        visible={uploading}
+        progress={uploadProgress}
+        message={uploadMessage}
+      />
       </div>
     </div>
   );
