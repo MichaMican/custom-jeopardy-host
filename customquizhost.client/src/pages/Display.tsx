@@ -46,7 +46,7 @@ function QuestionDisplay({ question, revealed, mediaPlaying, mozaikRevealing, mo
           clearInterval(interval);
           return 0;
         }
-        return Math.max(0, prev - decrement);
+        return prev - decrement;
       });
     }, 100);
 
