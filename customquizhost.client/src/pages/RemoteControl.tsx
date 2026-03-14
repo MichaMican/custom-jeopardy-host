@@ -88,6 +88,7 @@ function RemoteControl() {
         playerAnswersRevealed: false,
         answerRevealed: false,
         mediaVolume: 70,
+        pauseOnBuzz: false,
       };
       await invoke("ImportGameSettings", emptyState);
       setShowResetModal(false);
@@ -724,6 +725,14 @@ function RemoteControl() {
                   ? "Deactivate Buzzer"
                   : "Activate Buzzer"}
               </button>
+              <label className="pause-on-buzz-label">
+                <input
+                  type="checkbox"
+                  checked={gameState.pauseOnBuzz}
+                  onChange={(e) => invoke("SetPauseOnBuzz", e.target.checked)}
+                />
+                Pause actions on buzz
+              </label>
               {gameState.buzzOrder.length > 0 && (
                 <>
                   <div className="buzz-order-list">

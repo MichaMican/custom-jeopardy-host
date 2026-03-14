@@ -91,6 +91,8 @@ public class GameHub : Hub
 
     public async Task HideQuestionText() => await _gameService.HideQuestionText();
 
+    public async Task SetPauseOnBuzz(bool value) => await _gameService.SetPauseOnBuzz(value);
+
     public async Task MoveQuestion(string categoryId, string questionId, string direction) =>
         await _gameService.MoveQuestion(categoryId, questionId, direction);
 

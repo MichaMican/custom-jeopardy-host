@@ -207,6 +207,13 @@ public class GameService
                 PlayerName = player.Name,
                 Timestamp = DateTime.UtcNow
             });
+
+            if (_gameState.PauseOnBuzz)
+            {
+                _gameState.MediaPlaying = false;
+                _gameState.MozaikRevealing = false;
+            }
+
             await BroadcastGameState();
         }
     }
@@ -339,6 +346,12 @@ public class GameService
     public async Task HideQuestionText()
     {
         _gameState.QuestionTextRevealed = false;
+        await BroadcastGameState();
+    }
+
+    public async Task SetPauseOnBuzz(bool value)
+    {
+        _gameState.PauseOnBuzz = value;
         await BroadcastGameState();
     }
 
