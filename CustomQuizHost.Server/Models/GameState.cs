@@ -27,6 +27,7 @@ public class GameState
     public bool PlayerAnswersRevealed { get; set; }
     public bool AnswerRevealed { get; set; }
     public int MediaVolume { get; set; } = 70;
+    public bool PauseOnBuzz { get; set; }
 }
 
 public class Player

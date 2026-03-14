@@ -51,4 +51,5 @@ export interface GameState {
   playerAnswersRevealed: boolean;
   answerRevealed: boolean;
   mediaVolume: number;
+  pauseOnBuzz: boolean;
 }
